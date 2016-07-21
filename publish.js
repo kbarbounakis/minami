@@ -301,17 +301,21 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
                 itemsNav += '<li>' + linktoFn('', item.name);
                 itemsNav += '</li>';
             } else if ( !hasOwnProp.call(itemsSeen, item.longname) ) {
-                itemsNav += '<li>' + linktoFn(item.longname, item.name.replace(/^module:/, ''));
-                if (methods.length) {
-                    itemsNav += "<ul class='methods'>";
 
+                itemsNav += '<li>';
+                if (methods.length) {
+                    itemsNav += "<i class='ionicons ion-ios-minus'></i>";
+                    itemsNav += linktoFn(item.longname, item.name.replace(/^module:/, ''));
+                    itemsNav += "<ul class='methods'>";
                     methods.forEach(function (method) {
                         itemsNav += "<li data-type='method'>";
                         itemsNav += linkto(method.longname, method.name);
                         itemsNav += "</li>";
                     });
-
                     itemsNav += "</ul>";
+                }
+                else {
+                    itemsNav += linktoFn(item.longname, item.name.replace(/^module:/, ''));
                 }
                 itemsNav += '</li>';
                 itemsSeen[item.longname] = true;
